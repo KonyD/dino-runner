@@ -1,0 +1,104 @@
+[gd_scene load_steps=10 format=3 uid="uid://d4c6a32l0odpy"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_0qxmt"]
+[ext_resource type="PackedScene" uid="uid://blco6vnmfuo3u" path="res://scenes/player.tscn" id="1_snn6p"]
+[ext_resource type="Texture2D" uid="uid://j1qgag1nmfrl" path="res://assets/sprites/ground.png" id="2_4eyuu"]
+[ext_resource type="Texture2D" uid="uid://7u6akhcy3lpk" path="res://assets/sprites/bg.png" id="2_lmk7u"]
+[ext_resource type="Shader" path="res://scenes/scroll.gdshader" id="2_ygl02"]
+[ext_resource type="FontFile" uid="uid://cssle67s2qlut" path="res://assets/fonts/Tiny5-Regular.ttf" id="3_adv6f"]
+[ext_resource type="Texture2D" uid="uid://ik233k3ii08k" path="res://assets/sprites/retry.png" id="4_02b62"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_il3f1"]
+shader = ExtResource("2_ygl02")
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_v8pxo"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_0qxmt")
+
+[node name="Bg" type="Sprite2D" parent="."]
+position = Vector2(576, 322)
+scale = Vector2(36, 20.125)
+texture = ExtResource("2_lmk7u")
+
+[node name="Ground" type="TextureRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_il3f1")
+offset_top = 588.0
+offset_right = 4816.0
+offset_bottom = 648.0
+texture = ExtResource("2_4eyuu")
+
+[node name="Player" parent="." instance=ExtResource("1_snn6p")]
+position = Vector2(384, 584)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-24, -16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(536, 648)
+shape = SubResource("WorldBoundaryShape2D_v8pxo")
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 1.4
+
+[node name="Label" type="Label" parent="."]
+offset_left = 352.0
+offset_top = 192.0
+offset_right = 797.0
+offset_bottom = 339.0
+theme_override_fonts/font = ExtResource("3_adv6f")
+theme_override_font_sizes/font_size = 32
+text = "PRESS [SPACE] TO START"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+visible = false
+z_index = 6
+offset_left = 352.0
+offset_top = 231.0
+offset_right = 800.0
+offset_bottom = 295.0
+theme_override_fonts/font = ExtResource("3_adv6f")
+theme_override_font_sizes/font_size = 32
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+z_index = 6
+position = Vector2(568, 432)
+scale = Vector2(4, 4)
+texture = ExtResource("4_02b62")
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 36.0
+theme_override_fonts/font = ExtResource("3_adv6f")
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HighScoreLabel" type="Label" parent="."]
+visible = false
+offset_left = 472.0
+offset_top = 296.0
+offset_right = 680.0
+offset_bottom = 332.0
+theme_override_fonts/font = ExtResource("3_adv6f")
+theme_override_font_sizes/font_size = 32
+text = "High score: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="ScoreTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.5
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
