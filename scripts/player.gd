@@ -30,7 +30,9 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
-
+# When the player scene touched a obstacle scene play the
+# death animation, set "time_scale" to 0.5, stop the timers
+# and make "game_over" true.
 func _on_area_2d_area_entered(area):
 	$Death.play()
 	Global.game_over = true
