@@ -7,4 +7,4 @@ T-Rex Runner clone made in Godot4
 * Bend Down - [DOWN ARROW] 
 
 Here's a screenshot! 🦖
-![Screenshot](./screenshot.png)
+![Screenshot](https://github.com/KonyD/dino-runner/blob/main/%20screenshot.png)
