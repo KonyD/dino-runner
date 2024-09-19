@@ -2,7 +2,7 @@
 
 T-Rex Runner clone made in Godot4
 
-#Controls
+# Controls
 * Jump - [SPACE KEY]
 * Bend Down - [DOWN ARROW] 
 
